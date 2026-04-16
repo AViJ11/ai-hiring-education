@@ -5,7 +5,26 @@
       "WebFetch(domain:github.com)",
       "WebSearch",
       "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/lib/utils.ts\")",
-      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/package.json\")"
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/package.json\")",
+      "Bash(taskkill /PID 38192 /F)",
+      "Bash(npm run *)",
+      "Bash(curl -s \"https://api.github.com/repos/AViJ11/cyber-scholar-ai/git/trees/main?recursive=1\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/StudentSection.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/EmployerSection.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/TrendsSection.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/SourcesSection.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/BorderGlow.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/data/mockData.ts\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/AnimatedCounter.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/ClickSpark.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/Navbar.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/ScrollFloat.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/ScrollReveal.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/NavLink.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/components/ui/chart.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/App.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/pages/Index.tsx\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/index.css\")"
     ]
   }
 }

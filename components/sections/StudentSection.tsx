@@ -1,299 +1,283 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { GraduationCap, Brain, AlertTriangle, CheckCircle, FileText, Video } from 'lucide-react'
-import SectionWrapper from '@/components/layout/SectionWrapper'
-import ATSWorkflow from '@/components/interactive/ATSWorkflow'
-import ResumeChecklist from '@/components/interactive/ResumeChecklist'
-import ResumeComparison from '@/components/interactive/ResumeComparison'
-import ScamQuiz from '@/components/interactive/ScamQuiz'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Send, Search, BarChart3, Eye, Video, CheckCircle, Check, X, AlertTriangle, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import ScrollReveal from '@/components/ui/ScrollReveal'
+import ScrollFloat from '@/components/ui/ScrollFloat'
+import BorderGlow from '@/components/ui/BorderGlow'
+import { atsPipelineStages, badResume, goodResume, resumeChecklist, scamQuizQuestions } from '@/data/mockData'
 
-function InfoCard({
-  icon: Icon,
-  title,
-  points,
-  iconClass,
-  delay = 0,
-}: {
-  icon: React.ElementType
-  title: string
-  points: string[]
-  iconClass: string
-  delay?: number
-}) {
+const iconMap: Record<string, React.ElementType> = { Send, Search, BarChart3, Eye, Video, CheckCircle }
+
+// ─── ATS Flowchart ───────────────────────────────────────────
+function ATSFlowchart() {
+  const [activeStage, setActiveStage] = useState<number | null>(null)
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay }}
-      className="glass-card p-6"
-    >
-      <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-card/80`}>
-        <Icon size={20} className={iconClass} />
+    <div className="glass-card p-6 rounded-2xl">
+      <h3 className="text-xl font-semibold text-foreground mb-6">ATS Pipeline — Click to Explore</h3>
+      <div className="flex flex-col gap-3">
+        {atsPipelineStages.map((stage) => {
+          const Icon = iconMap[stage.icon]
+          const isActive = activeStage === stage.id
+          return (
+            <motion.button
+              key={stage.id}
+              onClick={() => setActiveStage(isActive ? null : stage.id)}
+              className={`flex items-center gap-4 p-4 rounded-xl text-left transition-all border ${
+                isActive
+                  ? 'border-primary/50 bg-primary/10 glow-cyan'
+                  : 'border-border/30 bg-card/40 hover:border-primary/30'
+              }`}
+              whileHover={{ x: 4 }}
+            >
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                isActive ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
+              }`}>
+                {Icon && <Icon size={20} />}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">Step {stage.id}</span>
+                  <ChevronRight size={14} className={`text-muted-foreground transition-transform ${isActive ? 'rotate-90' : ''}`} />
+                </div>
+                <p className="font-medium text-foreground">{stage.title}</p>
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.p
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="text-sm text-muted-foreground mt-2 overflow-hidden"
+                    >
+                      {stage.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.button>
+          )
+        })}
       </div>
-      <h4 className="mb-3 font-bold text-foreground">{title}</h4>
-      <ul className="space-y-2">
-        {points.map((p, i) => (
-          <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-            <CheckCircle size={14} className={`mt-0.5 flex-shrink-0 ${iconClass}`} />
-            {p}
-          </li>
-        ))}
-      </ul>
-    </motion.div>
+    </div>
   )
 }
 
+// ─── Resume Comparison ───────────────────────────────────────
+function ResumeComparison() {
+  const [showGood, setShowGood] = useState(false)
+  const current = showGood ? goodResume : badResume
+
+  return (
+    <div className="glass-card p-6 rounded-2xl">
+      <h3 className="text-xl font-semibold text-foreground mb-4">Resume Comparison</h3>
+      <div className="flex gap-2 mb-6">
+        <Button
+          variant={!showGood ? 'default' : 'outline'}
+          size="sm"
+          onClick={() => setShowGood(false)}
+          className={!showGood ? 'bg-destructive text-white hover:bg-destructive/90' : ''}
+        >
+          Bad Resume
+        </Button>
+        <Button
+          variant={showGood ? 'default' : 'outline'}
+          size="sm"
+          onClick={() => setShowGood(true)}
+          className={showGood ? 'bg-accent text-white hover:bg-accent/90' : ''}
+        >
+          Optimized Resume
+        </Button>
+      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current.title}
+          initial={{ opacity: 0, x: showGood ? 20 : -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: showGood ? -20 : 20 }}
+          transition={{ duration: 0.3 }}
+          className="space-y-3"
+        >
+          {current.items.map((item, i) => (
+            <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-background/50">
+              {showGood
+                ? <Check className="text-accent mt-0.5 flex-shrink-0" size={16} />
+                : <X className="text-destructive mt-0.5 flex-shrink-0" size={16} />}
+              <span className="text-sm text-foreground">{item}</span>
+            </div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+// ─── Resume Checklist ────────────────────────────────────────
+function ResumeChecklistCard() {
+  const [checked, setChecked] = useState<string[]>([])
+  const toggle = (id: string) =>
+    setChecked((prev) => prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id])
+  const progress = Math.round((checked.length / resumeChecklist.length) * 100)
+
+  return (
+    <div className="glass-card p-6 rounded-2xl">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xl font-semibold text-foreground">Resume Checklist</h3>
+        <span className="text-sm font-medium text-primary">{progress}%</span>
+      </div>
+      <div className="h-2 rounded-full bg-muted mb-6 overflow-hidden">
+        <motion.div
+          className="h-full rounded-full bg-gradient-to-r from-primary to-secondary"
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.4 }}
+        />
+      </div>
+      <div className="space-y-3">
+        {resumeChecklist.map((item) => (
+          <label
+            key={item.id}
+            className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-muted/30 transition-colors"
+          >
+            <Checkbox checked={checked.includes(item.id)} onCheckedChange={() => toggle(item.id)} />
+            <span className={`text-sm ${checked.includes(item.id) ? 'text-muted-foreground line-through' : 'text-foreground'}`}>
+              {item.label}
+            </span>
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Scam Quiz ───────────────────────────────────────────────
+function ScamQuiz() {
+  const [currentQ, setCurrentQ] = useState(0)
+  const [selected, setSelected] = useState<number | null>(null)
+  const [score, setScore] = useState(0)
+  const [done, setDone] = useState(false)
+  const q = scamQuizQuestions[currentQ]
+
+  const handleSelect = (i: number) => {
+    if (selected !== null) return
+    setSelected(i)
+    if (i === q.correct) setScore((s) => s + 1)
+  }
+
+  const next = () => {
+    if (currentQ < scamQuizQuestions.length - 1) {
+      setCurrentQ((c) => c + 1)
+      setSelected(null)
+    } else {
+      setDone(true)
+    }
+  }
+
+  return (
+    <div className="glass-card p-6 rounded-2xl">
+      <div className="flex items-center gap-2 mb-4">
+        <AlertTriangle className="text-primary" size={20} />
+        <h3 className="text-xl font-semibold text-foreground">Scam Detection Quiz</h3>
+      </div>
+      {done ? (
+        <div className="text-center py-8">
+          <p className="text-3xl font-bold text-gradient mb-2">{score}/{scamQuizQuestions.length}</p>
+          <p className="text-muted-foreground">Great job staying alert!</p>
+          <Button
+            className="mt-4"
+            variant="outline"
+            onClick={() => { setCurrentQ(0); setSelected(null); setScore(0); setDone(false) }}
+          >
+            Retry
+          </Button>
+        </div>
+      ) : (
+        <>
+          <p className="text-xs text-muted-foreground mb-2">
+            Question {currentQ + 1} of {scamQuizQuestions.length}
+          </p>
+          <p className="text-foreground font-medium mb-4 text-sm leading-relaxed">{q.question}</p>
+          <div className="space-y-2 mb-4">
+            {q.options.map((opt, i) => (
+              <motion.button
+                key={i}
+                onClick={() => handleSelect(i)}
+                whileHover={selected === null ? { x: 4 } : {}}
+                className={`w-full text-left p-3 rounded-lg border text-sm transition-all ${
+                  selected === null
+                    ? 'border-border/30 hover:border-primary/50 text-foreground'
+                    : i === q.correct
+                    ? 'border-accent bg-accent/10 text-foreground'
+                    : i === selected
+                    ? 'border-destructive bg-destructive/10 text-foreground'
+                    : 'border-border/30 text-muted-foreground'
+                }`}
+              >
+                {opt}
+              </motion.button>
+            ))}
+          </div>
+          {selected !== null && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <p className="text-sm text-muted-foreground mb-3">{q.explanation}</p>
+              <Button size="sm" onClick={next}>
+                {currentQ < scamQuizQuestions.length - 1 ? 'Next' : 'See Results'}
+              </Button>
+            </motion.div>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
+// ─── Section ─────────────────────────────────────────────────
 export default function StudentSection() {
   return (
-    <div id="students" className="bg-student-pattern">
-      <SectionWrapper
-        id="students-inner"
-        tag="For Students & Job Seekers"
-        tagColor="text-primary"
-        title="Navigate the System with Confidence"
-        subtitle="Most job seekers don't know how AI hiring actually works. This section changes that."
-      >
-
-        {/* How AI hiring works — intro cards */}
-        <div className="mb-20">
-          <motion.h3
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-foreground"
-          >
-            How the Hiring System Works Today
-          </motion.h3>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <InfoCard
-              icon={FileText}
-              title="ATS First Contact"
-              points={[
-                'Your resume is parsed by software before any human sees it',
-                'Keywords and formatting determine if you advance',
-                '72% of resumes never reach a recruiter',
-              ]}
-              iconClass="text-primary"
-              delay={0.05}
-            />
-            <InfoCard
-              icon={Brain}
-              title="AI Scoring"
-              points={[
-                'ATS assigns a match score based on keyword alignment',
-                'Top scorers advance to human review',
-                'Bias can be encoded in the scoring model',
-              ]}
-              iconClass="text-secondary"
-              delay={0.1}
-            />
-            <InfoCard
-              icon={Video}
-              title="AI Interviews"
-              points={[
-                'Many companies use video AI to screen before live interviews',
-                'Systems analyze tone, word choice, and facial expressions',
-                'These tools have documented fairness and accuracy concerns',
-              ]}
-              iconClass="text-primary"
-              delay={0.15}
-            />
-            <InfoCard
-              icon={AlertTriangle}
-              title="Scam Risk"
-              points={[
-                '1 in 3 job seekers has encountered a scam posting',
-                'AI makes fake job listings more convincing',
-                'Social engineering via "interviews" is rising',
-              ]}
-              iconClass="text-amber-400"
-              delay={0.2}
-            />
-          </div>
-        </div>
-
-        {/* ATS Workflow */}
-        <div className="mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6"
-          >
-            <h3 className="text-xl font-bold text-foreground">The ATS Pipeline — Step by Step</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Click each stage to understand what happens to your application and what you can do about it.
+    <section id="students" className="py-20">
+      <div className="container mx-auto px-4">
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">
+              For Students &amp; Job Seekers
             </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <ATSWorkflow />
-          </motion.div>
-        </div>
+            <ScrollFloat containerClassName="flex justify-center" textClassName="text-foreground font-bold">
+              Navigate the AI Hiring Maze
+            </ScrollFloat>
+            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+              Understand how ATS systems work, optimize your resume, and protect yourself from scams.
+            </p>
+          </div>
+        </ScrollReveal>
 
-        {/* Resume tools */}
-        <div className="mb-20">
-          <motion.h3
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-foreground"
-          >
-            Optimize Your Resume — Without Lying
-          </motion.h3>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05 }}
-            >
-              <ResumeChecklist />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
+        <div className="grid lg:grid-cols-2 gap-8">
+          <ScrollReveal delay={0.1}>
+            <BorderGlow colors={['hsl(187, 86%, 43%)', 'hsl(160, 84%, 39%)', 'hsl(187, 86%, 43%)']} glowColor="187 86 43">
+              <ATSFlowchart />
+            </BorderGlow>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <BorderGlow colors={['hsl(187, 86%, 43%)', 'hsl(258, 90%, 66%)', 'hsl(187, 86%, 43%)']} glowColor="187 86 43">
               <ResumeComparison />
-            </motion.div>
-          </div>
-        </div>
+            </BorderGlow>
+          </ScrollReveal>
 
-        {/* AI Interview Tips */}
-        <div className="mb-20">
-          <motion.h3
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-foreground"
-          >
-            Preparing for AI Video Interviews
-          </motion.h3>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { title: 'Structure Your Answers', body: 'Use the STAR method (Situation, Task, Action, Result) for every behavioral question. AI analysis often scores answer structure and completeness.', icon: '📐' },
-              { title: 'Camera & Environment', body: 'Face the camera directly. Ensure good lighting (light source in front of you, not behind). A plain background reduces visual noise that some AI systems flag.', icon: '🎥' },
-              { title: 'Speak Clearly', body: 'Speak at a measured, clear pace. AI transcription and sentiment analysis performs best with clear diction. Avoid filler words like "um" and "like."', icon: '🎙️' },
-              { title: 'Know Your Rights', body: 'In some jurisdictions (like Illinois), employers must notify you if AI is used to evaluate your interview. You can ask HR about their process.', icon: '⚖️' },
-              { title: 'Practice Out Loud', body: 'Record yourself answering practice questions. Watch it back to evaluate your pace, expression, and clarity. This is the most effective prep method.', icon: '🔄' },
-              { title: 'Manage the Bias Risk', body: 'AI interview tools have shown documented bias related to accent, skin tone, and neurodivergence. If you are rejected unfairly, document your experience.', icon: '🛡️' },
-            ].map(({ title, body, icon }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-                whileHover={{ y: -4 }}
-                className="glass-card p-5 transition-shadow hover:shadow-[var(--shadow-card-hover)]"
-              >
-                <div className="mb-3 text-2xl">{icon}</div>
-                <h4 className="mb-2 font-bold text-foreground text-sm">{title}</h4>
-                <p className="text-xs leading-relaxed text-muted-foreground">{body}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+          <ScrollReveal delay={0.3}>
+            <BorderGlow colors={['hsl(160, 84%, 39%)', 'hsl(187, 86%, 43%)', 'hsl(160, 84%, 39%)']} glowColor="160 84 39">
+              <ResumeChecklistCard />
+            </BorderGlow>
+          </ScrollReveal>
 
-        {/* What you control vs what you don't */}
-        <div className="mb-20">
-          <motion.h3
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-foreground"
-          >
-            What You Control — and What You Don&apos;t
-          </motion.h3>
-          <div className="grid gap-5 sm:grid-cols-2">
-            {[
-              {
-                label: 'You Control',
-                icon: '✅',
-                borderClass: 'border-accent/30',
-                bgClass: 'bg-accent/5',
-                textClass: 'text-accent',
-                items: [
-                  'How well you tailor your resume to each job',
-                  'Whether your formatting is ATS-parseable',
-                  'Which keywords you include and how',
-                  'How you prepare for AI video interviews',
-                  'Whether you verify a job posting is legitimate',
-                  'How many roles you apply to and where',
-                ],
-              },
-              {
-                label: "You Don't Control",
-                icon: '❌',
-                borderClass: 'border-destructive/30',
-                bgClass: 'bg-destructive/5',
-                textClass: 'text-destructive',
-                items: [
-                  'Which ATS software the employer uses',
-                  'Whether the AI model has calibrated bias',
-                  'How many candidates also applied',
-                  "Internal referral candidates you aren't aware of",
-                  'Whether an employer uses AI video screening',
-                  "The employer's budget or headcount freeze",
-                ],
-              },
-            ].map(({ label, icon, borderClass, bgClass, textClass, items }) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className={`rounded-2xl border-2 p-6 ${borderClass} ${bgClass}`}
-              >
-                <p className={`mb-4 flex items-center gap-2 font-bold ${textClass}`}>
-                  {icon} {label}
-                </p>
-                <ul className="space-y-2">
-                  {items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-current opacity-60" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Scam Quiz */}
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6"
-          >
-            <h3 className="text-xl font-bold text-foreground">Can You Spot a Scam Job?</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Fake job postings cost Americans over $14 billion annually. Test your ability to identify them.
-            </p>
-          </motion.div>
-          <div className="max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
+          <ScrollReveal delay={0.4}>
+            <BorderGlow colors={['hsl(258, 90%, 66%)', 'hsl(187, 86%, 43%)', 'hsl(258, 90%, 66%)']} glowColor="258 90 66">
               <ScamQuiz />
-            </motion.div>
-          </div>
+            </BorderGlow>
+          </ScrollReveal>
         </div>
-      </SectionWrapper>
-    </div>
+      </div>
+    </section>
   )
 }
