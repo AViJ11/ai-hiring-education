@@ -16,13 +16,13 @@ export default function Home() {
         {/* Fixed dot-field background */}
         <div className="fixed inset-0 z-0 pointer-events-none">
           <DotField
-            dotRadius={1.3}
-            dotSpacing={18}
-            cursorRadius={350}
-            bulgeStrength={35}
+            dotRadius={2}
+            dotSpacing={16}
+            cursorRadius={400}
+            bulgeStrength={50}
             waveAmplitude={1.5}
-            gradientFrom="rgba(6, 182, 212, 0.35)"
-            gradientTo="rgba(139, 92, 246, 0.25)"
+            gradientFrom="rgba(6, 182, 212, 0.65)"
+            gradientTo="rgba(139, 92, 246, 0.5)"
           />
         </div>
 

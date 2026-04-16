@@ -112,9 +112,21 @@ export default function HeroSection() {
 
         {/* Stat cards */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-5xl">
-          {heroStats.map((stat, i) => (
-            <StatCard key={stat.label} stat={stat} delay={0.5 + i * 0.08} />
-          ))}
+          {heroStats.map((stat, i) => {
+            const glowMap: Record<string, { colors: string[]; glow: string }> = {
+              indigo:  { colors: ['hsl(187,86%,43%)', 'hsl(258,90%,66%)', 'hsl(187,86%,43%)'], glow: '187 86 43' },
+              cyan:    { colors: ['hsl(187,86%,43%)', 'hsl(160,84%,39%)', 'hsl(187,86%,43%)'], glow: '187 86 43' },
+              violet:  { colors: ['hsl(258,90%,66%)', 'hsl(187,86%,43%)', 'hsl(258,90%,66%)'], glow: '258 90 66' },
+              emerald: { colors: ['hsl(160,84%,39%)', 'hsl(187,86%,43%)', 'hsl(160,84%,39%)'], glow: '160 84 39' },
+              amber:   { colors: ['hsl(38,92%,50%)',  'hsl(258,90%,66%)', 'hsl(38,92%,50%)'],  glow: '38 92 50'  },
+            }
+            const gc = glowMap[stat.color] ?? glowMap.cyan
+            return (
+              <BorderGlow key={stat.label} colors={gc.colors} glowColor={gc.glow}>
+                <StatCard stat={stat} delay={0.5 + i * 0.08} bare />
+              </BorderGlow>
+            )
+          })}
         </div>
       </div>
     </section>

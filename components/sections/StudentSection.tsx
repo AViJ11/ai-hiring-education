@@ -17,8 +17,8 @@ function ATSFlowchart() {
   const [activeStage, setActiveStage] = useState<number | null>(null)
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
-      <h3 className="text-xl font-semibold text-foreground mb-6">ATS Pipeline — Click to Explore</h3>
+    <div className="p-7">
+      <h3 className="text-2xl font-semibold text-foreground mb-6">ATS Pipeline — Click to Explore</h3>
       <div className="flex flex-col gap-3">
         {atsPipelineStages.map((stage) => {
           const Icon = iconMap[stage.icon]
@@ -51,7 +51,7 @@ function ATSFlowchart() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      className="text-sm text-muted-foreground mt-2 overflow-hidden"
+                      className="text-base text-muted-foreground mt-2 overflow-hidden"
                     >
                       {stage.description}
                     </motion.p>
@@ -72,8 +72,8 @@ function ResumeComparison() {
   const current = showGood ? goodResume : badResume
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
-      <h3 className="text-xl font-semibold text-foreground mb-4">Resume Comparison</h3>
+    <div className="p-7">
+      <h3 className="text-2xl font-semibold text-foreground mb-4">Resume Comparison</h3>
       <div className="flex gap-2 mb-6">
         <Button
           variant={!showGood ? 'default' : 'outline'}
@@ -106,7 +106,7 @@ function ResumeComparison() {
               {showGood
                 ? <Check className="text-accent mt-0.5 flex-shrink-0" size={16} />
                 : <X className="text-destructive mt-0.5 flex-shrink-0" size={16} />}
-              <span className="text-sm text-foreground">{item}</span>
+              <span className="text-base text-foreground">{item}</span>
             </div>
           ))}
         </motion.div>
@@ -123,9 +123,9 @@ function ResumeChecklistCard() {
   const progress = Math.round((checked.length / resumeChecklist.length) * 100)
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
+    <div className="p-7">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-semibold text-foreground">Resume Checklist</h3>
+        <h3 className="text-2xl font-semibold text-foreground">Resume Checklist</h3>
         <span className="text-sm font-medium text-primary">{progress}%</span>
       </div>
       <div className="h-2 rounded-full bg-muted mb-6 overflow-hidden">
@@ -142,7 +142,7 @@ function ResumeChecklistCard() {
             className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-muted/30 transition-colors"
           >
             <Checkbox checked={checked.includes(item.id)} onCheckedChange={() => toggle(item.id)} />
-            <span className={`text-sm ${checked.includes(item.id) ? 'text-muted-foreground line-through' : 'text-foreground'}`}>
+            <span className={`text-base ${checked.includes(item.id) ? 'text-muted-foreground line-through' : 'text-foreground'}`}>
               {item.label}
             </span>
           </label>
@@ -176,10 +176,10 @@ function ScamQuiz() {
   }
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
+    <div className="p-7">
       <div className="flex items-center gap-2 mb-4">
-        <AlertTriangle className="text-primary" size={20} />
-        <h3 className="text-xl font-semibold text-foreground">Scam Detection Quiz</h3>
+        <AlertTriangle className="text-primary" size={22} />
+        <h3 className="text-2xl font-semibold text-foreground">Scam Detection Quiz</h3>
       </div>
       {done ? (
         <div className="text-center py-8">
@@ -205,7 +205,7 @@ function ScamQuiz() {
                 key={i}
                 onClick={() => handleSelect(i)}
                 whileHover={selected === null ? { x: 4 } : {}}
-                className={`w-full text-left p-3 rounded-lg border text-sm transition-all ${
+                className={`w-full text-left p-4 rounded-lg border text-base transition-all ${
                   selected === null
                     ? 'border-border/30 hover:border-primary/50 text-foreground'
                     : i === q.correct

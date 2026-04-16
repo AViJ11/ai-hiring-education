@@ -29,9 +29,9 @@ function HiringWorkflow() {
   const data = showAI ? afterAI : beforeAI
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
+    <div className="p-7">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-foreground">Hiring Workflow</h3>
+        <h3 className="text-2xl font-semibold text-foreground">Hiring Workflow</h3>
         <div className="flex items-center gap-2 text-sm">
           <span className={!showAI ? 'text-foreground' : 'text-muted-foreground'}>Traditional</span>
           <Switch checked={showAI} onCheckedChange={setShowAI} />
@@ -84,9 +84,9 @@ function FairnessToggle() {
   const data = fair ? fairHiring : efficientHiring
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
+    <div className="p-7">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-foreground">Hiring Metrics</h3>
+        <h3 className="text-2xl font-semibold text-foreground">Hiring Metrics</h3>
         <div className="flex items-center gap-2 text-sm">
           <span className={!fair ? 'text-foreground' : 'text-muted-foreground'}>Efficient</span>
           <Switch checked={fair} onCheckedChange={setFair} />
@@ -124,8 +124,8 @@ function FairnessChecklistCard() {
   const [open, setOpen] = useState<string | null>(null)
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
-      <h3 className="text-xl font-semibold text-foreground mb-6">AI Fairness Scorecard for Recruiters</h3>
+    <div className="p-7">
+      <h3 className="text-2xl font-semibold text-foreground mb-6">AI Fairness Scorecard for Recruiters</h3>
       <div className="grid sm:grid-cols-2 gap-4">
         {fairnessChecklist.map((cat) => (
           <motion.div

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { ExternalLink, BookOpen } from 'lucide-react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import ScrollFloat from '@/components/ui/ScrollFloat'
+import BorderGlow from '@/components/ui/BorderGlow'
 import { sources } from '@/data/mockData'
 
 const typeColor: Record<string, string> = {
@@ -31,26 +32,37 @@ export default function SourcesSection() {
         </ScrollReveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {sources.map((src, i) => (
-            <ScrollReveal key={src.title} delay={i * 0.05}>
-              <motion.a
-                href={src.url}
-                whileHover={{ y: -4 }}
-                className="glass-card p-5 rounded-2xl block h-full hover:border-primary/30 transition-all group cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColor[src.type] ?? 'bg-muted text-muted-foreground'}`}>
-                    {src.type}
-                  </span>
-                  <span className="text-xs text-muted-foreground">{src.year}</span>
-                </div>
-                <BookOpen className="text-muted-foreground mb-2" size={18} />
-                <h4 className="font-semibold text-foreground text-sm mb-1">{src.title}</h4>
-                <p className="text-xs text-muted-foreground mb-3">{src.subtitle}</p>
-                <ExternalLink size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
-              </motion.a>
-            </ScrollReveal>
-          ))}
+          {sources.map((src, i) => {
+            const glowCycle = [
+              { colors: ['hsl(187,86%,43%)', 'hsl(258,90%,66%)', 'hsl(187,86%,43%)'], glow: '187 86 43' },
+              { colors: ['hsl(258,90%,66%)', 'hsl(160,84%,39%)', 'hsl(258,90%,66%)'], glow: '258 90 66' },
+              { colors: ['hsl(160,84%,39%)', 'hsl(187,86%,43%)', 'hsl(160,84%,39%)'], glow: '160 84 39' },
+              { colors: ['hsl(187,86%,43%)', 'hsl(160,84%,39%)', 'hsl(258,90%,66%)'], glow: '187 86 43' },
+            ]
+            const gc = glowCycle[i % 4]
+            return (
+              <ScrollReveal key={src.title} delay={i * 0.05}>
+                <BorderGlow colors={gc.colors} glowColor={gc.glow} className="h-full">
+                  <motion.a
+                    href={src.url}
+                    whileHover={{ y: -2 }}
+                    className="p-5 block h-full group cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColor[src.type] ?? 'bg-muted text-muted-foreground'}`}>
+                        {src.type}
+                      </span>
+                      <span className="text-xs text-muted-foreground">{src.year}</span>
+                    </div>
+                    <BookOpen className="text-muted-foreground mb-2" size={20} />
+                    <h4 className="font-semibold text-foreground text-base mb-1">{src.title}</h4>
+                    <p className="text-sm text-muted-foreground mb-3">{src.subtitle}</p>
+                    <ExternalLink size={16} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                  </motion.a>
+                </BorderGlow>
+              </ScrollReveal>
+            )
+          })}
         </div>
       </div>
     </section>

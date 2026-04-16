@@ -9,6 +9,7 @@ interface StatCardProps {
   stat: StatItem
   delay?: number
   className?: string
+  bare?: boolean
 }
 
 const colorMap = {
@@ -48,7 +49,7 @@ function useCountUp(target: number, duration: number, isInView: boolean) {
   return count
 }
 
-export default function StatCard({ stat, delay = 0, className }: StatCardProps) {
+export default function StatCard({ stat, delay = 0, className, bare = false }: StatCardProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
   const count = useCountUp(stat.value, 1400, isInView)
@@ -62,7 +63,8 @@ export default function StatCard({ stat, delay = 0, className }: StatCardProps) 
       transition={{ duration: 0.55, delay, ease: [0.25, 0.4, 0.25, 1] }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={cn(
-        'glass-card p-6 transition-shadow hover:shadow-[var(--shadow-card-hover)]',
+        !bare && 'glass-card',
+        'p-6 transition-shadow',
         className
       )}
     >
