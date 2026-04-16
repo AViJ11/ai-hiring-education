@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/src/lib/utils.ts\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/AViJ11/cyber-scholar-ai/main/package.json\")"
+    ]
+  }
+}

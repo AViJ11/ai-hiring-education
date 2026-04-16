@@ -12,11 +12,11 @@ interface StatCardProps {
 }
 
 const colorMap = {
-  indigo:  { bg: 'bg-indigo-50',  text: 'text-indigo-600',  border: 'border-indigo-100' },
-  violet:  { bg: 'bg-violet-50',  text: 'text-violet-600',  border: 'border-violet-100' },
-  cyan:    { bg: 'bg-cyan-50',    text: 'text-cyan-600',    border: 'border-cyan-100'   },
-  emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-100' },
-  amber:   { bg: 'bg-amber-50',   text: 'text-amber-600',   border: 'border-amber-100'  },
+  indigo:  { text: 'text-primary',   border: 'border-primary/20',   badge: 'bg-primary/10 text-primary'   },
+  violet:  { text: 'text-secondary', border: 'border-secondary/20', badge: 'bg-secondary/10 text-secondary' },
+  cyan:    { text: 'text-primary',   border: 'border-primary/20',   badge: 'bg-primary/10 text-primary'   },
+  emerald: { text: 'text-accent',    border: 'border-accent/20',    badge: 'bg-accent/10 text-accent'     },
+  amber:   { text: 'text-amber-400', border: 'border-amber-400/20', badge: 'bg-amber-400/10 text-amber-400' },
 }
 
 function useCountUp(target: number, duration: number, isInView: boolean) {
@@ -62,11 +62,11 @@ export default function StatCard({ stat, delay = 0, className }: StatCardProps) 
       transition={{ duration: 0.55, delay, ease: [0.25, 0.4, 0.25, 1] }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={cn(
-        'rounded-2xl border bg-white p-6 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-card-hover)]',
+        'glass-card p-6 transition-shadow hover:shadow-[var(--shadow-card-hover)]',
         className
       )}
     >
-      <div className={cn('mb-3 inline-flex rounded-xl px-3 py-1.5 text-xs font-semibold uppercase tracking-wider', colors.bg, colors.text)}>
+      <div className={cn('mb-3 inline-flex rounded-xl px-3 py-1.5 text-xs font-semibold uppercase tracking-wider', colors.badge)}>
         {stat.color === 'amber' ? 'Warning' : 'Key Stat'}
       </div>
 
@@ -75,10 +75,10 @@ export default function StatCard({ stat, delay = 0, className }: StatCardProps) 
         {stat.suffix}
       </div>
 
-      <p className="mt-2 text-sm font-semibold text-slate-800">{stat.label}</p>
+      <p className="mt-2 text-sm font-semibold text-foreground">{stat.label}</p>
 
       {stat.description && (
-        <p className="mt-1.5 text-xs leading-relaxed text-slate-500">{stat.description}</p>
+        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{stat.description}</p>
       )}
     </motion.div>
   )

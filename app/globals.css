@@ -2,21 +2,36 @@
 
 /* ─── Design Tokens ──────────────────────────────────────── */
 @theme {
-  /* Fonts */
   --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
 
+  /* Dark theme color palette */
+  --color-background: hsl(222, 47%, 11%);
+  --color-card: hsl(217, 33%, 17%);
+  --color-border: hsl(217, 33%, 25%);
+  --color-foreground: hsl(210, 40%, 98%);
+  --color-muted: hsl(217, 33%, 17%);
+  --color-muted-foreground: hsl(215, 25%, 65%);
+  --color-primary: hsl(187, 86%, 43%);
+  --color-primary-foreground: hsl(222, 47%, 11%);
+  --color-secondary: hsl(258, 90%, 66%);
+  --color-secondary-foreground: hsl(210, 40%, 98%);
+  --color-accent: hsl(160, 84%, 39%);
+  --color-accent-foreground: hsl(210, 40%, 98%);
+  --color-destructive: hsl(0, 84%, 60%);
+  --color-steel: hsl(215, 25%, 65%);
+
   /* Custom shadows */
-  --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06);
-  --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.10);
-  --shadow-glow-indigo: 0 0 48px rgba(99,102,241,0.18);
-  --shadow-glow-violet: 0 0 48px rgba(124,58,237,0.15);
-  --shadow-glow-emerald: 0 0 48px rgba(16,185,129,0.15);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.5);
+  --shadow-glow-cyan: 0 0 20px hsl(187, 86%, 43%, 0.15), 0 0 60px hsl(187, 86%, 43%, 0.05);
+  --shadow-glow-violet: 0 0 20px hsl(258, 90%, 66%, 0.15), 0 0 60px hsl(258, 90%, 66%, 0.05);
 
   /* Animations */
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
   --animate-float-delayed: float 6s ease-in-out 3s infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
   --animate-spin-slow: spin 24s linear infinite;
 }
 
@@ -24,6 +39,11 @@
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
 }
 
 @keyframes shake {
@@ -47,11 +67,12 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: hsl(222, 47%, 11%);
+  color: hsl(210, 40%, 98%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* Anchor offset for sticky nav */
@@ -59,45 +80,91 @@ section[id] { scroll-margin-top: 80px; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: #818cf8; }
+::-webkit-scrollbar-track { background: hsl(222, 47%, 11%); }
+::-webkit-scrollbar-thumb { background: hsl(187, 86%, 43%, 0.4); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(187, 86%, 43%, 0.7); }
 
 /* ─── Utilities ──────────────────────────────────────────── */
 @layer utilities {
+  /* Glass card — dark version */
+  .glass-card {
+    background: hsl(217, 33%, 17%, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(217, 33%, 25%, 0.5);
+    border-radius: 0.75rem;
+  }
+
+  /* Legacy glass (kept for compat) */
+  .glass {
+    background: hsl(217, 33%, 17%, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(217, 33%, 25%, 0.5);
+    box-shadow: var(--shadow-card);
+  }
+  .glass-sm {
+    background: hsl(217, 33%, 17%, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid hsl(217, 33%, 25%, 0.4);
+  }
+
+  /* Glow effects */
+  .glow-cyan {
+    box-shadow: 0 0 20px hsl(187, 86%, 43%, 0.15), 0 0 60px hsl(187, 86%, 43%, 0.05);
+  }
+  .glow-violet {
+    box-shadow: 0 0 20px hsl(258, 90%, 66%, 0.15), 0 0 60px hsl(258, 90%, 66%, 0.05);
+  }
+
+  /* Gradient mesh background */
+  .gradient-mesh {
+    background:
+      radial-gradient(ellipse at 20% 50%, hsl(187, 86%, 43%, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(258, 90%, 66%, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, hsl(187, 86%, 43%, 0.05) 0%, transparent 50%);
+  }
+
+  /* Background patterns — updated for dark theme */
+  .bg-hero-pattern {
+    background:
+      radial-gradient(ellipse at 20% 50%, hsl(187, 86%, 43%, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(258, 90%, 66%, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, hsl(187, 86%, 43%, 0.05) 0%, transparent 50%),
+      hsl(222, 47%, 11%);
+  }
+  .bg-student-pattern {
+    background:
+      radial-gradient(ellipse at 10% 25%, hsl(187, 86%, 43%, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 75%, hsl(258, 90%, 66%, 0.06) 0%, transparent 50%),
+      hsl(222, 47%, 11%);
+  }
+  .bg-employer-pattern {
+    background:
+      radial-gradient(ellipse at 10% 25%, hsl(160, 84%, 39%, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 75%, hsl(187, 86%, 43%, 0.06) 0%, transparent 50%),
+      hsl(217, 33%, 14%);
+  }
+
   /* Gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #6366f1, #7c3aed, #06b6d4);
+    background: linear-gradient(135deg, hsl(187, 86%, 43%), hsl(258, 90%, 66%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .text-gradient-student {
-    background: linear-gradient(135deg, #6366f1, #7c3aed);
+    background: linear-gradient(135deg, hsl(187, 86%, 43%), hsl(258, 90%, 66%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .text-gradient-employer {
-    background: linear-gradient(135deg, #059669, #0d9488);
+    background: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(187, 86%, 43%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  }
-
-  /* Glassmorphism */
-  .glass {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.5);
-    box-shadow: var(--shadow-card);
-  }
-  .glass-sm {
-    background: rgba(255,255,255,0.60);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.40);
   }
 
   /* Card hover effect */
@@ -119,31 +186,19 @@ section[id] { scroll-margin-top: 80px; }
   /* Count-up entry */
   .count-up { animation: countUp 0.6s ease-out forwards; }
 
-  /* Background patterns */
-  .bg-hero-pattern {
-    background:
-      radial-gradient(ellipse at 15% 50%, rgba(99,102,241,0.08) 0%, transparent 55%),
-      radial-gradient(ellipse at 85% 15%, rgba(124,58,237,0.06) 0%, transparent 55%),
-      radial-gradient(ellipse at 50% 85%, rgba(6,182,212,0.05) 0%, transparent 55%),
-      #f8fafc;
-  }
-  .bg-student-pattern {
-    background:
-      radial-gradient(ellipse at 10% 25%, rgba(99,102,241,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 75%, rgba(124,58,237,0.05) 0%, transparent 50%),
-      #ffffff;
-  }
-  .bg-employer-pattern {
-    background:
-      radial-gradient(ellipse at 10% 25%, rgba(16,185,129,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 75%, rgba(20,184,166,0.05) 0%, transparent 50%),
-      #f8fafc;
+  /* Floating orb */
+  .orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    pointer-events: none;
   }
 
-  /* Animate-float utility classes */
+  /* Animate utilities */
   .animate-float { animation: float 6s ease-in-out infinite; }
   .animate-float-slow { animation: float 9s ease-in-out infinite; }
   .animate-float-delayed { animation: float 6s ease-in-out 3s infinite; }
   .animate-pulse-slow { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
   .animate-spin-slow { animation: spin 24s linear infinite; }
 }

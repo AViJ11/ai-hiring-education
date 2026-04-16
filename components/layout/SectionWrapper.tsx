@@ -8,7 +8,6 @@ interface SectionWrapperProps {
   id: string
   children: ReactNode
   className?: string
-  /** Accent color for the section tag */
   tag?: string
   tagColor?: string
   title?: string
@@ -21,7 +20,7 @@ export default function SectionWrapper({
   children,
   className,
   tag,
-  tagColor = 'bg-indigo-50 text-indigo-600',
+  tagColor = 'text-primary',
   title,
   subtitle,
   centered = false,
@@ -41,17 +40,17 @@ export default function SectionWrapper({
             className={cn('mb-16', centered ? 'text-center' : '')}
           >
             {tag && (
-              <span className={cn('inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-widest mb-4', tagColor)}>
+              <p className={cn('text-sm font-medium tracking-widest uppercase mb-4', tagColor)}>
                 {tag}
-              </span>
+              </p>
             )}
             {title && (
-              <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className={cn('mt-4 text-lg text-slate-600 leading-relaxed', centered ? 'mx-auto max-w-2xl' : 'max-w-2xl')}>
+              <p className={cn('mt-4 text-lg text-muted-foreground leading-relaxed', centered ? 'mx-auto max-w-2xl' : 'max-w-2xl')}>
                 {subtitle}
               </p>
             )}

@@ -12,15 +12,13 @@ function InfoCard({
   icon: Icon,
   title,
   points,
-  color,
-  bg,
+  iconClass,
   delay = 0,
 }: {
   icon: React.ElementType
   title: string
   points: string[]
-  color: string
-  bg: string
+  iconClass: string
   delay?: number
 }) {
   return (
@@ -29,16 +27,16 @@ function InfoCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay }}
-      className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[var(--shadow-card)]"
+      className="glass-card p-6"
     >
-      <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl ${bg}`}>
-        <Icon size={20} className={color} />
+      <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-card/80`}>
+        <Icon size={20} className={iconClass} />
       </div>
-      <h4 className="mb-3 font-bold text-slate-900">{title}</h4>
+      <h4 className="mb-3 font-bold text-foreground">{title}</h4>
       <ul className="space-y-2">
         {points.map((p, i) => (
-          <li key={i} className="flex items-start gap-2.5 text-sm text-slate-600">
-            <CheckCircle size={14} className={`mt-0.5 flex-shrink-0 ${color}`} />
+          <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+            <CheckCircle size={14} className={`mt-0.5 flex-shrink-0 ${iconClass}`} />
             {p}
           </li>
         ))}
@@ -53,7 +51,7 @@ export default function StudentSection() {
       <SectionWrapper
         id="students-inner"
         tag="For Students & Job Seekers"
-        tagColor="bg-indigo-50 text-indigo-600"
+        tagColor="text-primary"
         title="Navigate the System with Confidence"
         subtitle="Most job seekers don't know how AI hiring actually works. This section changes that."
       >
@@ -64,7 +62,7 @@ export default function StudentSection() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-slate-900"
+            className="mb-6 text-xl font-bold text-foreground"
           >
             How the Hiring System Works Today
           </motion.h3>
@@ -77,8 +75,7 @@ export default function StudentSection() {
                 'Keywords and formatting determine if you advance',
                 '72% of resumes never reach a recruiter',
               ]}
-              color="text-indigo-600"
-              bg="bg-indigo-50"
+              iconClass="text-primary"
               delay={0.05}
             />
             <InfoCard
@@ -89,8 +86,7 @@ export default function StudentSection() {
                 'Top scorers advance to human review',
                 'Bias can be encoded in the scoring model',
               ]}
-              color="text-violet-600"
-              bg="bg-violet-50"
+              iconClass="text-secondary"
               delay={0.1}
             />
             <InfoCard
@@ -101,8 +97,7 @@ export default function StudentSection() {
                 'Systems analyze tone, word choice, and facial expressions',
                 'These tools have documented fairness and accuracy concerns',
               ]}
-              color="text-cyan-600"
-              bg="bg-cyan-50"
+              iconClass="text-primary"
               delay={0.15}
             />
             <InfoCard
@@ -113,8 +108,7 @@ export default function StudentSection() {
                 'AI makes fake job listings more convincing',
                 'Social engineering via "interviews" is rising',
               ]}
-              color="text-amber-600"
-              bg="bg-amber-50"
+              iconClass="text-amber-400"
               delay={0.2}
             />
           </div>
@@ -128,8 +122,8 @@ export default function StudentSection() {
             viewport={{ once: true }}
             className="mb-6"
           >
-            <h3 className="text-xl font-bold text-slate-900">The ATS Pipeline — Step by Step</h3>
-            <p className="mt-2 text-sm text-slate-500">
+            <h3 className="text-xl font-bold text-foreground">The ATS Pipeline — Step by Step</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
               Click each stage to understand what happens to your application and what you can do about it.
             </p>
           </motion.div>
@@ -149,7 +143,7 @@ export default function StudentSection() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-slate-900"
+            className="mb-6 text-xl font-bold text-foreground"
           >
             Optimize Your Resume — Without Lying
           </motion.h3>
@@ -179,42 +173,18 @@ export default function StudentSection() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-slate-900"
+            className="mb-6 text-xl font-bold text-foreground"
           >
             Preparing for AI Video Interviews
           </motion.h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              {
-                title: 'Structure Your Answers',
-                body: 'Use the STAR method (Situation, Task, Action, Result) for every behavioral question. AI analysis often scores answer structure and completeness.',
-                icon: '📐',
-              },
-              {
-                title: 'Camera & Environment',
-                body: 'Face the camera directly. Ensure good lighting (light source in front of you, not behind). A plain background reduces visual noise that some AI systems flag.',
-                icon: '🎥',
-              },
-              {
-                title: 'Speak Clearly',
-                body: 'Speak at a measured, clear pace. AI transcription and sentiment analysis performs best with clear diction. Avoid filler words like "um" and "like."',
-                icon: '🎙️',
-              },
-              {
-                title: 'Know Your Rights',
-                body: 'In some jurisdictions (like Illinois), employers must notify you if AI is used to evaluate your interview. You can ask HR about their process.',
-                icon: '⚖️',
-              },
-              {
-                title: 'Practice Out Loud',
-                body: 'Record yourself answering practice questions. Watch it back to evaluate your pace, expression, and clarity. This is the most effective prep method.',
-                icon: '🔄',
-              },
-              {
-                title: 'Manage the Bias Risk',
-                body: 'AI interview tools have shown documented bias related to accent, skin tone, and neurodivergence. If you are rejected unfairly, document your experience.',
-                icon: '🛡️',
-              },
+              { title: 'Structure Your Answers', body: 'Use the STAR method (Situation, Task, Action, Result) for every behavioral question. AI analysis often scores answer structure and completeness.', icon: '📐' },
+              { title: 'Camera & Environment', body: 'Face the camera directly. Ensure good lighting (light source in front of you, not behind). A plain background reduces visual noise that some AI systems flag.', icon: '🎥' },
+              { title: 'Speak Clearly', body: 'Speak at a measured, clear pace. AI transcription and sentiment analysis performs best with clear diction. Avoid filler words like "um" and "like."', icon: '🎙️' },
+              { title: 'Know Your Rights', body: 'In some jurisdictions (like Illinois), employers must notify you if AI is used to evaluate your interview. You can ask HR about their process.', icon: '⚖️' },
+              { title: 'Practice Out Loud', body: 'Record yourself answering practice questions. Watch it back to evaluate your pace, expression, and clarity. This is the most effective prep method.', icon: '🔄' },
+              { title: 'Manage the Bias Risk', body: 'AI interview tools have shown documented bias related to accent, skin tone, and neurodivergence. If you are rejected unfairly, document your experience.', icon: '🛡️' },
             ].map(({ title, body, icon }, i) => (
               <motion.div
                 key={title}
@@ -223,11 +193,11 @@ export default function StudentSection() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
                 whileHover={{ y: -4 }}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-card-hover)]"
+                className="glass-card p-5 transition-shadow hover:shadow-[var(--shadow-card-hover)]"
               >
                 <div className="mb-3 text-2xl">{icon}</div>
-                <h4 className="mb-2 font-bold text-slate-900 text-sm">{title}</h4>
-                <p className="text-xs leading-relaxed text-slate-600">{body}</p>
+                <h4 className="mb-2 font-bold text-foreground text-sm">{title}</h4>
+                <p className="text-xs leading-relaxed text-muted-foreground">{body}</p>
               </motion.div>
             ))}
           </div>
@@ -239,7 +209,7 @@ export default function StudentSection() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 text-xl font-bold text-slate-900"
+            className="mb-6 text-xl font-bold text-foreground"
           >
             What You Control — and What You Don&apos;t
           </motion.h3>
@@ -248,8 +218,9 @@ export default function StudentSection() {
               {
                 label: 'You Control',
                 icon: '✅',
-                color: 'border-emerald-200 bg-emerald-50',
-                textColor: 'text-emerald-800',
+                borderClass: 'border-accent/30',
+                bgClass: 'bg-accent/5',
+                textClass: 'text-accent',
                 items: [
                   'How well you tailor your resume to each job',
                   'Whether your formatting is ATS-parseable',
@@ -262,31 +233,32 @@ export default function StudentSection() {
               {
                 label: "You Don't Control",
                 icon: '❌',
-                color: 'border-rose-200 bg-rose-50',
-                textColor: 'text-rose-800',
+                borderClass: 'border-destructive/30',
+                bgClass: 'bg-destructive/5',
+                textClass: 'text-destructive',
                 items: [
                   'Which ATS software the employer uses',
                   'Whether the AI model has calibrated bias',
                   'How many candidates also applied',
-                  'Internal referral candidates you aren\'t aware of',
+                  "Internal referral candidates you aren't aware of",
                   'Whether an employer uses AI video screening',
-                  'The employer\'s budget or headcount freeze',
+                  "The employer's budget or headcount freeze",
                 ],
               },
-            ].map(({ label, icon, color, textColor, items }) => (
+            ].map(({ label, icon, borderClass, bgClass, textClass, items }) => (
               <motion.div
                 key={label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`rounded-2xl border-2 p-6 ${color}`}
+                className={`rounded-2xl border-2 p-6 ${borderClass} ${bgClass}`}
               >
-                <p className={`mb-4 flex items-center gap-2 font-bold ${textColor}`}>
+                <p className={`mb-4 flex items-center gap-2 font-bold ${textClass}`}>
                   {icon} {label}
                 </p>
                 <ul className="space-y-2">
                   {items.map((item, i) => (
-                    <li key={i} className={`text-sm ${textColor.replace('800', '700')} flex items-start gap-2`}>
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
                       <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-current opacity-60" />
                       {item}
                     </li>
@@ -305,8 +277,8 @@ export default function StudentSection() {
             viewport={{ once: true }}
             className="mb-6"
           >
-            <h3 className="text-xl font-bold text-slate-900">Can You Spot a Scam Job?</h3>
-            <p className="mt-2 text-sm text-slate-500">
+            <h3 className="text-xl font-bold text-foreground">Can You Spot a Scam Job?</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
               Fake job postings cost Americans over $14 billion annually. Test your ability to identify them.
             </p>
           </motion.div>
