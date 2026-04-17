@@ -22,7 +22,7 @@ export default function ScrollFloat({
   return (
     <div className={containerClassName || className}>
       <h2
-        className={`text-4xl sm:text-5xl lg:text-6xl xl:text-7xl ${textClassName}`}
+        className={`text-5xl sm:text-6xl lg:text-7xl xl:text-8xl ${textClassName}`}
         style={{ lineHeight: '1.1' }}
       >
         {words.map((word, wi) => (

@@ -60,20 +60,20 @@ export default function StickyNav() {
             : 'bg-transparent'
         )}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 sm:px-8 lg:px-12">
           {/* Logo */}
           <button
             onClick={() => handleNav('home')}
-            className="flex items-center gap-2 text-foreground font-bold text-lg group"
+            className="flex items-center gap-3 text-foreground font-bold text-2xl group"
           >
-            <Brain className="text-primary" size={24} />
+            <Brain className="text-primary" size={32} />
             <span>
               AI<span className="text-primary">Hire</span>Guide
             </span>
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-2">
             {navItems.map((item) => {
               const isActive = active === item.id
               return (
@@ -81,7 +81,7 @@ export default function StickyNav() {
                   key={item.id}
                   onClick={() => handleNav(item.id)}
                   className={cn(
-                    'relative px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
+                    'relative px-5 py-2.5 rounded-lg text-base font-medium transition-colors duration-200',
                     isActive
                       ? 'text-primary bg-primary/10'
                       : 'text-muted-foreground hover:text-foreground hover:bg-card/60'
@@ -96,10 +96,10 @@ export default function StickyNav() {
           {/* Mobile toggle */}
           <button
             onClick={() => setMobileOpen((v) => !v)}
-            className="md:hidden flex items-center justify-center h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card/60 transition-colors"
+            className="md:hidden flex items-center justify-center h-11 w-11 rounded-xl text-muted-foreground hover:text-foreground hover:bg-card/60 transition-colors"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
@@ -111,14 +111,14 @@ export default function StickyNav() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden border-t border-border/30 glass-card px-4 py-3 space-y-1 rounded-none"
+              className="md:hidden border-t border-border/30 glass-card px-6 py-4 space-y-1 rounded-none"
             >
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleNav(item.id)}
                   className={cn(
-                    'w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                    'w-full text-left px-5 py-3 rounded-xl text-base font-medium transition-colors',
                     active === item.id
                       ? 'bg-primary/10 text-primary'
                       : 'text-muted-foreground hover:text-foreground hover:bg-card/60'
@@ -140,10 +140,10 @@ export default function StickyNav() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg glow-cyan transition-transform hover:scale-110"
+            className="fixed bottom-8 right-8 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg glow-cyan transition-transform hover:scale-110"
             aria-label="Back to top"
           >
-            <ArrowUp size={18} />
+            <ArrowUp size={24} />
           </motion.button>
         )}
       </AnimatePresence>

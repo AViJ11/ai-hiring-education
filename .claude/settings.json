@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -Command \"Select-String -Path 'c:\\\\Users\\\\avane\\\\ai-hiring-education\\\\components\\\\*\\\\*.tsx' -Pattern 'width=\\\\\"auto\\\\\"' | Select-Object -First 10\")",
+      "Bash(/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -Command ' *)"
+    ]
+  }
+}

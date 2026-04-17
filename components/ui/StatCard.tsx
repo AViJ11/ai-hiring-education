@@ -64,23 +64,23 @@ export default function StatCard({ stat, delay = 0, className, bare = false }: S
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={cn(
         !bare && 'glass-card',
-        'p-6 transition-shadow',
+        'p-8 transition-shadow',
         className
       )}
     >
-      <div className={cn('mb-3 inline-flex rounded-xl px-3 py-1.5 text-xs font-semibold uppercase tracking-wider', colors.badge)}>
+      <div className={cn('mb-3 inline-flex rounded-xl px-3 py-1.5 text-sm font-semibold uppercase tracking-wider', colors.badge)}>
         {stat.color === 'amber' ? 'Warning' : 'Key Stat'}
       </div>
 
-      <div className={cn('text-4xl font-extrabold tabular-nums', colors.text)}>
+      <div className={cn('text-5xl font-extrabold tabular-nums', colors.text)}>
         {count}
         {stat.suffix}
       </div>
 
-      <p className="mt-2 text-sm font-semibold text-foreground">{stat.label}</p>
+      <p className="mt-3 text-base font-semibold text-foreground">{stat.label}</p>
 
       {stat.description && (
-        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{stat.description}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{stat.description}</p>
       )}
     </motion.div>
   )

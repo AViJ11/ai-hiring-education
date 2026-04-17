@@ -5,6 +5,7 @@ import { ExternalLink, BookOpen } from 'lucide-react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import ScrollFloat from '@/components/ui/ScrollFloat'
 import BorderGlow from '@/components/ui/BorderGlow'
+import GlassSurface from '@/components/ui/GlassSurface'
 import { sources } from '@/data/mockData'
 
 const typeColor: Record<string, string> = {
@@ -20,12 +21,16 @@ export default function SourcesSection() {
     <section id="sources" className="py-20 gradient-mesh">
       <div className="container mx-auto px-4">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Evidence Base</p>
+          <div className="text-center mb-20">
+            <div className="flex justify-center mb-4">
+              <GlassSurface borderRadius={50}>
+                <span className="text-primary font-medium tracking-widest uppercase text-lg font-semibold whitespace-nowrap">Evidence Base</span>
+              </GlassSurface>
+            </div>
             <ScrollFloat containerClassName="flex justify-center" textClassName="text-foreground font-bold">
               Sources &amp; Research
             </ScrollFloat>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+            <p className="text-muted-foreground text-xl mt-6 max-w-3xl mx-auto leading-relaxed">
               Key studies and reports that inform our understanding of AI in hiring.
             </p>
           </div>
@@ -46,7 +51,7 @@ export default function SourcesSection() {
                   <motion.a
                     href={src.url}
                     whileHover={{ y: -2 }}
-                    className="p-5 block h-full group cursor-pointer"
+                    className="p-7 block h-full group cursor-pointer"
                   >
                     <div className="flex items-center justify-between mb-3">
                       <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColor[src.type] ?? 'bg-muted text-muted-foreground'}`}>
@@ -55,8 +60,8 @@ export default function SourcesSection() {
                       <span className="text-xs text-muted-foreground">{src.year}</span>
                     </div>
                     <BookOpen className="text-muted-foreground mb-2" size={20} />
-                    <h4 className="font-semibold text-foreground text-base mb-1">{src.title}</h4>
-                    <p className="text-sm text-muted-foreground mb-3">{src.subtitle}</p>
+                    <h4 className="font-semibold text-foreground text-lg mb-2">{src.title}</h4>
+                    <p className="text-base text-muted-foreground mb-4">{src.subtitle}</p>
                     <ExternalLink size={16} className="text-muted-foreground group-hover:text-primary transition-colors" />
                   </motion.a>
                 </BorderGlow>
@@ -68,3 +73,8 @@ export default function SourcesSection() {
     </section>
   )
 }
+
+
+
+
+

@@ -5,6 +5,7 @@ import { GraduationCap, Building2 } from 'lucide-react'
 import StatCard from '@/components/ui/StatCard'
 import GradientText from '@/components/ui/GradientText'
 import BorderGlow from '@/components/ui/BorderGlow'
+import GlassSurface from '@/components/ui/GlassSurface'
 import { heroStats } from '@/data/stats'
 
 function scrollTo(id: string) {
@@ -36,9 +37,11 @@ export default function HeroSection() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <p className="text-primary font-medium tracking-widest uppercase text-sm">
-            Understanding the AI Hiring Revolution
-          </p>
+          <GlassSurface borderRadius={50}>
+            <span className="text-primary font-medium tracking-widest uppercase text-lg font-semibold whitespace-nowrap">
+              Understanding the AI Hiring Revolution
+            </span>
+          </GlassSurface>
         </motion.div>
 
         {/* Headline */}
@@ -48,17 +51,19 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="text-center mb-6"
         >
-          <h1 className="text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
-            The Algorithms
-            <br />
-            <GradientText
-              colors={['#06B6D4', '#8B5CF6', '#10B981']}
-              animationSpeed={6}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold"
-            >
-              Deciding Your Career
-            </GradientText>
-          </h1>
+          <GlassSurface borderRadius={28} className="inline-flex">
+            <h1 className="text-5xl font-bold leading-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl px-6 py-4">
+              The Algorithms
+              <br />
+              <GradientText
+                colors={['#06B6D4', '#8B5CF6', '#10B981']}
+                animationSpeed={6}
+                className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold"
+              >
+                Deciding Your Career
+              </GradientText>
+            </h1>
+          </GlassSurface>
         </motion.div>
 
         {/* Subtitle */}
@@ -66,7 +71,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="text-muted-foreground text-lg md:text-xl max-w-2xl text-center mb-14 leading-relaxed"
+          className="text-xl md:text-2xl max-w-3xl text-center mb-16 leading-relaxed" style={{ color: '#E8EDF2' }}
         >
           99% of Fortune 500 companies use AI in hiring. Learn how these systems work,
           where they fail, and how to navigate them — whether you&rsquo;re applying or recruiting.
@@ -132,3 +137,5 @@ export default function HeroSection() {
     </section>
   )
 }
+
+

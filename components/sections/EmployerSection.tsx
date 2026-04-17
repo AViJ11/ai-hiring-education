@@ -10,6 +10,7 @@ import { Switch } from '@/components/ui/switch'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import ScrollFloat from '@/components/ui/ScrollFloat'
 import BorderGlow from '@/components/ui/BorderGlow'
+import GlassSurface from '@/components/ui/GlassSurface'
 import { beforeAI, afterAI, efficientHiring, fairHiring, fairnessChecklist } from '@/data/mockData'
 
 const iconMap: Record<string, React.ElementType> = {
@@ -29,9 +30,9 @@ function HiringWorkflow() {
   const data = showAI ? afterAI : beforeAI
 
   return (
-    <div className="p-7">
+    <div className="p-9">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-semibold text-foreground">Hiring Workflow</h3>
+        <h3 className="text-3xl font-semibold text-foreground">Hiring Workflow</h3>
         <div className="flex items-center gap-2 text-sm">
           <span className={!showAI ? 'text-foreground' : 'text-muted-foreground'}>Traditional</span>
           <Switch checked={showAI} onCheckedChange={setShowAI} />
@@ -84,9 +85,9 @@ function FairnessToggle() {
   const data = fair ? fairHiring : efficientHiring
 
   return (
-    <div className="p-7">
+    <div className="p-9">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-semibold text-foreground">Hiring Metrics</h3>
+        <h3 className="text-3xl font-semibold text-foreground">Hiring Metrics</h3>
         <div className="flex items-center gap-2 text-sm">
           <span className={!fair ? 'text-foreground' : 'text-muted-foreground'}>Efficient</span>
           <Switch checked={fair} onCheckedChange={setFair} />
@@ -124,8 +125,8 @@ function FairnessChecklistCard() {
   const [open, setOpen] = useState<string | null>(null)
 
   return (
-    <div className="p-7">
-      <h3 className="text-2xl font-semibold text-foreground mb-6">AI Fairness Scorecard for Recruiters</h3>
+    <div className="p-9">
+      <h3 className="text-3xl font-semibold text-foreground mb-6">AI Fairness Scorecard for Recruiters</h3>
       <div className="grid sm:grid-cols-2 gap-4">
         {fairnessChecklist.map((cat) => (
           <motion.div
@@ -170,14 +171,18 @@ export default function EmployerSection() {
     <section id="employers" className="py-20 gradient-mesh">
       <div className="container mx-auto px-4">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-2">
-              For Employers &amp; Recruiters
-            </p>
+          <div className="text-center mb-20">
+            <div className="flex justify-center mb-4">
+              <GlassSurface borderRadius={50}>
+                <span className="text-secondary font-medium tracking-widest uppercase text-lg font-semibold whitespace-nowrap">
+                  For Employers &amp; Recruiters
+                </span>
+              </GlassSurface>
+            </div>
             <ScrollFloat containerClassName="flex justify-center" textClassName="text-foreground font-bold">
               Build Fair AI Hiring
             </ScrollFloat>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+            <p className="text-muted-foreground text-xl mt-6 max-w-3xl mx-auto leading-relaxed">
               Balance efficiency with fairness. Understand bias, over-filtering, and ethical AI practices.
             </p>
           </div>
@@ -206,3 +211,7 @@ export default function EmployerSection() {
     </section>
   )
 }
+
+
+
+

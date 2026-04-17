@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import ScrollFloat from '@/components/ui/ScrollFloat'
 import BorderGlow from '@/components/ui/BorderGlow'
+import GlassSurface from '@/components/ui/GlassSurface'
 import { atsPipelineStages, badResume, goodResume, resumeChecklist, scamQuizQuestions } from '@/data/mockData'
 
 const iconMap: Record<string, React.ElementType> = { Send, Search, BarChart3, Eye, Video, CheckCircle }
@@ -17,8 +18,8 @@ function ATSFlowchart() {
   const [activeStage, setActiveStage] = useState<number | null>(null)
 
   return (
-    <div className="p-7">
-      <h3 className="text-2xl font-semibold text-foreground mb-6">ATS Pipeline — Click to Explore</h3>
+    <div className="p-9">
+      <h3 className="text-3xl font-semibold text-foreground mb-6">ATS Pipeline — Click to Explore</h3>
       <div className="flex flex-col gap-3">
         {atsPipelineStages.map((stage) => {
           const Icon = iconMap[stage.icon]
@@ -72,8 +73,8 @@ function ResumeComparison() {
   const current = showGood ? goodResume : badResume
 
   return (
-    <div className="p-7">
-      <h3 className="text-2xl font-semibold text-foreground mb-4">Resume Comparison</h3>
+    <div className="p-9">
+      <h3 className="text-3xl font-semibold text-foreground mb-4">Resume Comparison</h3>
       <div className="flex gap-2 mb-6">
         <Button
           variant={!showGood ? 'default' : 'outline'}
@@ -123,9 +124,9 @@ function ResumeChecklistCard() {
   const progress = Math.round((checked.length / resumeChecklist.length) * 100)
 
   return (
-    <div className="p-7">
+    <div className="p-9">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-semibold text-foreground">Resume Checklist</h3>
+        <h3 className="text-3xl font-semibold text-foreground">Resume Checklist</h3>
         <span className="text-sm font-medium text-primary">{progress}%</span>
       </div>
       <div className="h-2 rounded-full bg-muted mb-6 overflow-hidden">
@@ -176,10 +177,10 @@ function ScamQuiz() {
   }
 
   return (
-    <div className="p-7">
+    <div className="p-9">
       <div className="flex items-center gap-2 mb-4">
         <AlertTriangle className="text-primary" size={22} />
-        <h3 className="text-2xl font-semibold text-foreground">Scam Detection Quiz</h3>
+        <h3 className="text-3xl font-semibold text-foreground">Scam Detection Quiz</h3>
       </div>
       {done ? (
         <div className="text-center py-8">
@@ -195,10 +196,10 @@ function ScamQuiz() {
         </div>
       ) : (
         <>
-          <p className="text-xs text-muted-foreground mb-2">
+          <p className="text-sm text-muted-foreground mb-3">
             Question {currentQ + 1} of {scamQuizQuestions.length}
           </p>
-          <p className="text-foreground font-medium mb-4 text-sm leading-relaxed">{q.question}</p>
+          <p className="text-foreground font-medium mb-5 text-base leading-relaxed">{q.question}</p>
           <div className="space-y-2 mb-4">
             {q.options.map((opt, i) => (
               <motion.button
@@ -236,17 +237,21 @@ function ScamQuiz() {
 // ─── Section ─────────────────────────────────────────────────
 export default function StudentSection() {
   return (
-    <section id="students" className="py-20">
+    <section id="students" className="py-28">
       <div className="container mx-auto px-4">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">
-              For Students &amp; Job Seekers
-            </p>
+          <div className="text-center mb-20">
+            <div className="flex justify-center mb-4">
+              <GlassSurface borderRadius={50}>
+                <span className="text-primary font-medium tracking-widest uppercase text-lg font-semibold whitespace-nowrap">
+                  For Students &amp; Job Seekers
+                </span>
+              </GlassSurface>
+            </div>
             <ScrollFloat containerClassName="flex justify-center" textClassName="text-foreground font-bold">
               Navigate the AI Hiring Maze
             </ScrollFloat>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+            <p className="text-muted-foreground text-xl mt-6 max-w-3xl mx-auto leading-relaxed">
               Understand how ATS systems work, optimize your resume, and protect yourself from scams.
             </p>
           </div>
@@ -281,3 +286,8 @@ export default function StudentSection() {
     </section>
   )
 }
+
+
+
+
+

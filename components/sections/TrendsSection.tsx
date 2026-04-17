@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import ScrollFloat from '@/components/ui/ScrollFloat'
 import BorderGlow from '@/components/ui/BorderGlow'
+import GlassSurface from '@/components/ui/GlassSurface'
 import { workerSentiment, skillChanges, aiAdoption, stakeholders } from '@/data/mockData'
 
 const tooltipStyle = {
@@ -27,8 +28,8 @@ function TrendCharts() {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       <BorderGlow colors={['hsl(187,86%,43%)', 'hsl(160,84%,39%)', 'hsl(187,86%,43%)']} glowColor="187 86 43">
-        <div className="p-6">
-          <h4 className="text-foreground font-semibold text-lg mb-4">Worker Sentiment Over Time</h4>
+        <div className="p-8">
+          <h4 className="text-foreground font-semibold text-xl mb-5">Worker Sentiment Over Time</h4>
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={workerSentiment}>
               <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
@@ -44,8 +45,8 @@ function TrendCharts() {
       </BorderGlow>
 
       <BorderGlow colors={['hsl(258,90%,66%)', 'hsl(187,86%,43%)', 'hsl(258,90%,66%)']} glowColor="258 90 66">
-        <div className="p-6">
-          <h4 className="text-foreground font-semibold text-lg mb-4">Skill Demand Shift</h4>
+        <div className="p-8">
+          <h4 className="text-foreground font-semibold text-xl mb-5">Skill Demand Shift</h4>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={skillChanges} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
@@ -62,8 +63,8 @@ function TrendCharts() {
 
       <div className="md:col-span-2 lg:col-span-1">
         <BorderGlow colors={['hsl(160,84%,39%)', 'hsl(258,90%,66%)', 'hsl(160,84%,39%)']} glowColor="160 84 39">
-          <div className="p-6">
-            <h4 className="text-foreground font-semibold text-lg mb-4">AI Adoption in Hiring</h4>
+          <div className="p-8">
+            <h4 className="text-foreground font-semibold text-xl mb-5">AI Adoption in Hiring</h4>
             <ResponsiveContainer width="100%" height={280}>
               <LineChart data={aiAdoption}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
@@ -88,8 +89,8 @@ function StakeholderMatrix() {
   return (
     <div className="mt-8">
     <BorderGlow colors={['hsl(187,86%,43%)', 'hsl(258,90%,66%)', 'hsl(160,84%,39%)']} glowColor="187 86 43">
-    <div className="p-6">
-      <h4 className="text-foreground font-semibold text-lg mb-4">Stakeholder Impact Matrix</h4>
+    <div className="p-8">
+      <h4 className="text-foreground font-semibold text-xl mb-5">Stakeholder Impact Matrix</h4>
       <div className="flex flex-wrap gap-2 mb-6">
         {categories.map((cat) => (
           <Button key={cat} size="sm" variant={filter === cat ? 'default' : 'outline'} onClick={() => setFilter(cat)} className="text-xs capitalize">
@@ -125,15 +126,19 @@ function StakeholderMatrix() {
 
 export default function TrendsSection() {
   return (
-    <section id="trends" className="py-20">
+    <section id="trends" className="py-28">
       <div className="container mx-auto px-4">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Market Intelligence</p>
+          <div className="text-center mb-20">
+            <div className="flex justify-center mb-4">
+              <GlassSurface borderRadius={50}>
+                <span className="text-primary font-medium tracking-widest uppercase text-lg font-semibold whitespace-nowrap">Market Intelligence</span>
+              </GlassSurface>
+            </div>
             <ScrollFloat containerClassName="flex justify-center" textClassName="text-foreground font-bold">
               Trends &amp; Insights
             </ScrollFloat>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+            <p className="text-muted-foreground text-xl mt-6 max-w-3xl mx-auto leading-relaxed">
               Data-driven insights into how AI is reshaping the job market.
             </p>
           </div>
@@ -144,3 +149,8 @@ export default function TrendsSection() {
     </section>
   )
 }
+
+
+
+
+
