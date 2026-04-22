@@ -71,10 +71,20 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="text-xl md:text-2xl max-w-3xl text-center mb-16 leading-relaxed" style={{ color: '#E8EDF2' }}
+          className="text-xl md:text-2xl max-w-3xl text-center mb-6 leading-relaxed font-medium" style={{ color: '#F1F5F9' }}
         >
-          99% of Fortune 500 companies use AI in hiring. Learn how these systems work,
-          where they fail, and how to navigate them — whether you&rsquo;re applying or recruiting.
+          AI now controls who gets seen and who gets ghosted. Automated systems scan, rank, and reject
+          resumes before any human ever reads them — and most job seekers never know why.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="text-base md:text-lg max-w-2xl text-center mb-16 leading-relaxed" style={{ color: '#CBD5E1' }}
+        >
+          The frustration is real: black-box rejections, scam postings that look legitimate, and
+          interviews run by algorithms. This site cuts through the confusion — whether you&rsquo;re
+          job hunting or hiring.
         </motion.p>
 
         {/* CTA cards */}

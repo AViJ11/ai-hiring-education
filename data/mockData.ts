@@ -8,12 +8,12 @@ export const heroStats = [
 
 // ─── ATS Pipeline ───────────────────────────────────────────
 export const atsPipelineStages = [
-  { id: 1, icon: 'FileText', title: 'Job Posted', description: 'Keywords in the job description become ATS filter criteria. Every word the employer writes is a scoring rubric for your resume.' },
-  { id: 2, icon: 'Send', title: 'Resume Submitted', description: 'ATS immediately parses the file. Formatting issues like tables or columns corrupt parsing. Use clean PDF or DOCX.' },
-  { id: 3, icon: 'Search', title: 'Keyword Scan', description: 'The system scans for keywords matching the job description. Missing key terms trigger automatic rejection in strict systems.' },
-  { id: 4, icon: 'BarChart3', title: 'Scoring & Ranking', description: 'Resumes get a match score. Most systems only surface the top 10–15% to human review. Tailor every resume.' },
-  { id: 5, icon: 'Eye', title: 'Human Review', description: 'A recruiter scans the top-ranked pile — often 6–10 seconds per resume. Structure and readability are critical.' },
-  { id: 6, icon: 'Video', title: 'AI Video Screen', description: 'Shortlisted candidates face AI video interviews that analyze tone, word choice, and facial expressions with known bias risks.' },
+  { id: 1, icon: 'FileText', title: 'Job Posted', description: 'Every word in a job posting becomes a scoring criterion inside the ATS. Mirror the exact language from the job description in your resume — not synonyms, the exact terms. This is legal keyword optimization, not cheating.' },
+  { id: 2, icon: 'Send', title: 'Resume Submitted', description: 'The moment you hit submit, an algorithm parses your file. Tables, text boxes, columns, and images corrupt ATS parsing silently. Use a clean single-column PDF or DOCX. You will never be told your resume failed to parse — it just disappears.' },
+  { id: 3, icon: 'Search', title: 'Keyword Scan', description: 'The ATS scans for required keywords. In strict configurations, a single missing term can trigger automatic rejection with no feedback sent to you. This is the "black box" — the system doesn\'t explain; it just filters. Tailor every application to its specific posting.' },
+  { id: 4, icon: 'BarChart3', title: 'Scoring & Ranking', description: 'Your resume gets a numerical match score. Most ATS systems surface only the top 10–20% to human recruiters. The rest are automatically archived — no human ever sees them. Sending the same generic resume to 50 jobs is statistically ineffective.' },
+  { id: 5, icon: 'Eye', title: 'Human Review', description: 'A recruiter scans the shortlisted stack — typically 6–10 seconds per resume. At this stage, visual clarity, scannable structure, and quantified accomplishments are the deciding factors. You\'ve beaten the bot; now impress a person.' },
+  { id: 6, icon: 'Video', title: 'AI Video Screen', description: 'Many companies now use AI video interviews before any human call. These tools analyze your word choice, speaking pace, and sometimes facial expressions — with documented bias risks. Prepare structured answers (STAR method), speak clearly, ensure good lighting, and know you can request a human alternative in some jurisdictions.' },
 ]
 
 // ─── Resume Comparison ──────────────────────────────────────
@@ -129,7 +129,7 @@ export const afterAI = [
 
 // ─── Hiring Metrics ─────────────────────────────────────────
 export const efficientHiring = {
-  title: 'Speed-Optimized',
+  title: 'Speed-Only (AI-Driven)',
   metrics: [
     { label: 'Time to Hire', value: '8 days', trend: 'up' },
     { label: 'Cost Per Hire', value: '$1,200', trend: 'up' },
@@ -141,7 +141,7 @@ export const efficientHiring = {
 }
 
 export const fairHiring = {
-  title: 'Fair + Efficient',
+  title: 'Human-First + Efficient',
   metrics: [
     { label: 'Time to Hire', value: '12 days', trend: 'neutral' },
     { label: 'Cost Per Hire', value: '$1,800', trend: 'neutral' },
@@ -158,36 +158,40 @@ export const fairnessChecklist = [
     category: 'Job Description',
     items: [
       'Use gender-neutral language throughout',
-      'List only truly essential requirements',
-      'Avoid degree requirements when not necessary',
-      'Include salary range for transparency',
+      'List only truly essential requirements — not a wish list',
+      'Avoid degree requirements when skills and experience suffice',
+      'Include salary range for transparency and candidate trust',
+      'Describe the actual day-to-day role, not just credentials',
     ],
   },
   {
     category: 'ATS Configuration',
     items: [
-      'Audit keyword filters for proxy bias (zip code, school name)',
+      'Audit keyword filters for proxy bias (zip code, school name, gaps)',
       'Include skills-based alternatives to degree requirements',
-      'Sample-review rejected resumes quarterly',
-      'Test the filter with diverse resume formats',
+      'Sample-review rejected resumes quarterly — you may be losing great candidates',
+      'Test filters with diverse resume formats and backgrounds',
+      'Set rejection thresholds conservatively: when in doubt, let a human see it',
     ],
   },
   {
     category: 'AI Video Screening',
     items: [
-      'Disclose AI use to all candidates before screening',
-      'Obtain explicit informed consent',
-      'Monitor approval rates by demographic group',
-      'Provide human review option on request',
+      'Disclose AI use to all candidates before screening begins',
+      'Obtain explicit informed consent — make opting out a real option',
+      'Monitor approval rates by demographic group for disparate impact',
+      'Always offer a human-led alternative on request',
+      'Treat AI scores as one signal, never the deciding factor',
     ],
   },
   {
-    category: 'Interview Process',
+    category: 'Human Decision Authority',
     items: [
-      'Use structured, standardized questions for all candidates',
-      'Train interviewers on bias recognition',
-      'Diverse panel for final-round interviews',
-      'Document scoring criteria before interviews begin',
+      'Final hiring decisions must be made by a human, not an algorithm',
+      'Require recruiters to review AI recommendations — not just ratify them',
+      'Ensure rejected candidates can request human review of their application',
+      'Document the human reasoning behind every final offer or rejection',
+      'Establish an internal appeal path for candidates who believe they were unfairly filtered',
     ],
   },
 ]

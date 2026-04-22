@@ -234,13 +234,84 @@ function ScamQuiz() {
   )
 }
 
+// ─── ATS Definition Banner ───────────────────────────────────
+function ATSDefinitionBanner() {
+  return (
+    <BorderGlow
+      colors={['hsl(187, 86%, 43%)', 'hsl(160, 84%, 39%)', 'hsl(187, 86%, 43%)']}
+      glowColor="187 86 43"
+    >
+      <div className="p-9">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <Search size={18} className="text-primary" />
+          </div>
+          <span className="text-primary font-semibold uppercase tracking-widest text-xs">Key Concept</span>
+        </div>
+        <h3 className="text-3xl font-semibold text-foreground mb-4">
+          What is an ATS (Applicant Tracking System)?
+        </h3>
+        <p className="text-foreground/80 text-base leading-relaxed max-w-3xl">
+          An <span className="text-primary font-semibold">Applicant Tracking System (ATS)</span> is the
+          software gatekeeper that companies use to scan, filter, and rank every resume submitted for a role —
+          before a single human ever sees it. Think of it as an algorithmic bouncer: it decides who gets through
+          the door based on keyword matches, formatting rules, and scoring logic. If your resume doesn&rsquo;t
+          clear the ATS filter, it is automatically discarded — no feedback, no explanation, no second chance.
+          This is why the modern job search can feel like shouting into a void.
+        </p>
+        <div className="mt-6 grid sm:grid-cols-3 gap-4">
+          {[
+            { label: '75%+', detail: 'of large companies use ATS to filter applicants' },
+            { label: '72%', detail: 'of qualified resumes rejected before human review' },
+            { label: '6 sec', detail: 'avg time a recruiter spends on a resume that makes it through' },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl p-4 border border-border/30 bg-background/50">
+              <p className="text-primary font-bold text-2xl">{s.label}</p>
+              <p className="text-foreground/70 text-sm mt-1">{s.detail}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </BorderGlow>
+  )
+}
+
+// ─── Current Climate Banner ──────────────────────────────────
+function ClimateBanner() {
+  return (
+    <BorderGlow
+      colors={['hsl(0, 72%, 51%)', 'hsl(258, 90%, 66%)', 'hsl(0, 72%, 51%)']}
+      glowColor="0 72 51"
+    >
+      <div className="p-9">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-9 h-9 rounded-lg bg-destructive/20 flex items-center justify-center flex-shrink-0">
+            <AlertTriangle size={18} className="text-destructive" />
+          </div>
+          <span className="text-destructive font-semibold uppercase tracking-widest text-xs">Current Reality</span>
+        </div>
+        <h3 className="text-3xl font-semibold text-foreground mb-4">
+          The Job Market Right Now: It&rsquo;s Genuinely Rough
+        </h3>
+        <p className="text-foreground/80 text-base leading-relaxed">
+          The frustration you feel is valid. Automated rejections with zero feedback, job postings that vanish
+          after hundreds of applications, AI video interviews that judge your lighting and tone — this is the
+          current reality. Scam postings now mimic legitimate listings closely enough to fool careful job seekers.
+          The good news: once you understand how these systems work, you can navigate them strategically.
+          This section gives you the tools to go from powerless to prepared.
+        </p>
+      </div>
+    </BorderGlow>
+  )
+}
+
 // ─── Section ─────────────────────────────────────────────────
 export default function StudentSection() {
   return (
     <section id="students" className="py-28">
       <div className="container mx-auto px-4">
         <ScrollReveal>
-          <div className="text-center mb-20">
+          <div className="text-center mb-16">
             <div className="flex justify-center mb-4">
               <GlassSurface borderRadius={50}>
                 <span className="text-primary font-medium tracking-widest uppercase text-lg font-semibold whitespace-nowrap">
@@ -252,8 +323,21 @@ export default function StudentSection() {
               Navigate the AI Hiring Maze
             </ScrollFloat>
             <p className="text-muted-foreground text-xl mt-6 max-w-3xl mx-auto leading-relaxed">
-              Understand how ATS systems work, optimize your resume, and protect yourself from scams.
+              The system isn&rsquo;t fair — but it is learnable. Understand exactly how ATS filters and AI
+              interviews work, then use that knowledge to get your resume in front of real humans.
             </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.05}>
+          <div className="mb-8">
+            <ATSDefinitionBanner />
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.08}>
+          <div className="mb-8">
+            <ClimateBanner />
           </div>
         </ScrollReveal>
 
